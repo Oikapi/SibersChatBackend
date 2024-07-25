@@ -16,6 +16,13 @@ class Message extends Model
         'message',
     ];
 
+    public static function createMessage(array $data, $user)
+    {
+        $data['user_id'] = $user->id;
+
+        return self::create($data);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

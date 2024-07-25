@@ -28,4 +28,11 @@ class Channel extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    protected static function booted()
+    {
+        static::saving(function (Channel $channel) {
+            $channel->created_by = $channel->created_by ?: auth()->id();
+        });
+    }
 }
